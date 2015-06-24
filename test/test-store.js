@@ -146,7 +146,7 @@ describe('jsonpath store example default options', function () {
 
     it('$.store..price.round()', function () {
         var opts = {
-            functions: {
+            sandbox: {
                 round: function (obj) {
                     return Math.round(obj);
                 }
@@ -325,7 +325,7 @@ describe('jsonpath store example wrap=true', function () {
 
     it('$.store..price.round()', function () {
         var opts = {
-            functions: {
+            sandbox: {
                 round: function (obj) {
                     return Math.round(obj);
                 }
@@ -511,7 +511,7 @@ describe('jsonpath store example wrap=false', function () {
     it('$.store..price.round()', function () {
         var opts = {
             wrap: false,
-            functions: {
+            sandbox: {
                 round: function (obj) {
                     return Math.round(obj);
                 }

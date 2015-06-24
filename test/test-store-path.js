@@ -13,7 +13,7 @@ var store = require('./examples/store.json');
 describe('jsonpath store example path option', function () {
     var options = {
         resultType: 'path',
-        functions: {
+        sandbox: {
             round: function (obj) {
                 return Math.round(obj);
             }

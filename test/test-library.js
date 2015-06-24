@@ -21,7 +21,7 @@ describe('jsonpath library example', function () {
 
     it('predefined functions', function () {
         var jp = jsonpath.instance('$.library.books[0].references[*].findLinked().title', {
-            functions: {
+            sandbox: {
                 findLinked: findLinked
             }
         });
