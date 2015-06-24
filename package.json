@@ -1,5 +1,5 @@
 {
-    "name": "jsoonave",
+    "name": "jsonave",
     "version": "0.0.2",
     "description": "A JSONPath implementation",
     "main": "./index.js",
