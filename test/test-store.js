@@ -93,6 +93,20 @@ describe('jsonpath store example default options', function () {
         expect(actual).to.deep.equal(expected);
     });
 
+    it('$.store.book[-2].price', function () {
+        var jp = jsonpath.instance('$.store.book[-2].price');
+        var actual = jp(store);
+        var expected = 8.99;
+        expect(actual).to.equal(expected);
+    });
+
+    it('$.store.book[-2,-1].price', function () {
+        var jp = jsonpath.instance('$.store.book[-2,-1]');
+        var actual = jp(store);
+        var expected = [store.store.book[2], store.store.book[3]];
+        expect(actual).to.deep.equal(expected);
+    });
+
     it('$..book[*][category,author]', function () {
         var jp = jsonpath.instance('$..book[*][category,author]');
         var actual = jp(store);

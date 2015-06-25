@@ -21,7 +21,7 @@ var t1 = {
 };
 
 xdescribe('@ and $ test', function () {
-    it('undefined, null', function () {
+    xit('undefined, null', function () {
         expect(jsonPath({
             json: undefined,
             path: 'foo'
