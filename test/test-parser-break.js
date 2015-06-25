@@ -17,7 +17,12 @@ describe('parser error conditions', function () {
         expect(fn).to.throw(Error);
     });
 
-    xit('$..book[!].category', function () {
+    it('$..book[a,!].category', function () {
+        var fn = parser.normalize.bind(null, '$..book[a,!].category');
+        expect(fn).to.throw(Error);
+    });
+
+    it('$..book[!].category', function () {
         var fn = parser.normalize.bind(null, '$..book[!].category');
         expect(fn).to.throw(Error);
     });

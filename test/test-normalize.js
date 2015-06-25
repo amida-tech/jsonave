@@ -120,6 +120,15 @@ describe('parser.normalize', function () {
         expect(actual).to.deep.equal(expected);
     });
 
+    it('$..book[*][\'category\',"author"]', function () {
+        var actual = parser.normalize('$..book[*][\'category\',"author"]');
+        var expected = [_n('root'), _n('recursive_descent'), _p('book'), _n('wildcard'), {
+            type: 'properties',
+            parameter: ['category', 'author']
+        }];
+        expect(actual).to.deep.equal(expected);
+    });
+
     it('$..book[?(@.isbn)]', function () {
         var actual = parser.normalize('$..book[?(@.isbn)]');
         var expected = [_n('root'), _n('recursive_descent'), _p('book'), {
