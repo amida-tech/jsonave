@@ -33,9 +33,8 @@
         "url": "https://github.com/amida-tech/jsonave.git"
     },
     "keywords": [
-        "bluebutton",
-        "blue-button",
-        "model"
+        "JSONPath",
+        "json-path"
     ],
     "bugs": {
         "url": "https://github.com/amida-tech/jsonave/issues"
