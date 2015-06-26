@@ -30,7 +30,7 @@ var json = {
     }]
 };
 
-xdescribe('parent selector', function () {
+describe('parent selector', function () {
 
     it('simple parent selection', function () {
         var result = jsonPath({

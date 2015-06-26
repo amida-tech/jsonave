@@ -152,6 +152,13 @@ describe('goessner example', function () {
 
     });
 
+    it('filter all properties if sub property greater than of entire tree (old format)', function () {
+        var books = json.store.book;
+        var expected = [books[0], books[2]];
+        var result = jsonPath(null, json, '$..book[?(@.price<10)]');
+        expect(result).to.deep.equal(expected);
+    });
+
     it('all properties of a JSON structure', function () {
         var expected = [
             json.store,

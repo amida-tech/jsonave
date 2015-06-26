@@ -6,20 +6,34 @@ var parser = require('../../lib/parser');
 
 var expect = chai.expect;
 
-describe('parser.normalize', function () {
-    var _p = function (property) {
-        return {
-            type: 'property',
-            parameter: property
-        };
+var _p = function (property) {
+    return {
+        type: 'property',
+        parameter: property
     };
+};
 
-    var _n = function (type) {
-        return {
-            type: type
-        };
+var _ps = function (properties) {
+    return {
+        type: 'properties',
+        parameter: properties
     };
+};
 
+var _sp = function (path) {
+    return {
+        type: 'subpath',
+        parameter: '$.$key'
+    };
+};
+
+var _n = function (type) {
+    return {
+        type: type
+    };
+};
+
+describe('parser normalize general', function () {
     it('$.store.book[*].author', function () {
         var actual = parser.normalize('$.store.book[*].author');
         var expected = [
@@ -179,13 +193,126 @@ describe('parser.normalize', function () {
         expect(actual).to.deep.equal(expected);
     });
 
+    it('$..book[*].category^', function () {
+        var actual = parser.normalize('$..book[*].category^');
+        var expected = [
+            _n('root'),
+            _n('recursive_descent'),
+            _p('book'),
+            _n('wildcard'),
+            _p('category'),
+            _n('parent')
+        ];
+        expect(actual).to.deep.equal(expected);
+    });
+});
+
+describe('parser normalize $', function () {
     it('$', function () {
         var actual = parser.normalize('$');
-        expect(actual).to.deep.equal([_n('root')]);
+        var expected = [_p('$')];
+        expect(actual).to.deep.equal(expected);
     });
 
-    xit('$..book[*].category^', function () {
-        var fn = parser.instance.bind(null, '$..book[*].category^');
-        expect(fn).to.throw(Error);
+    it('$$', function () {
+        var actual = parser.normalize('$$');
+        var expected = [_p('$$')];
+        expect(actual).to.deep.equal(expected);
+    });
+
+    it('$.prop', function () {
+        var actual = parser.normalize('$.prop');
+        var expected = [_n('root'), _p('prop')];
+        expect(actual).to.deep.equal(expected);
+    });
+
+    it('$.$prop[$]', function () {
+        var actual = parser.normalize('$.$prop[$]');
+        var expected = [_n('root'), _p('$prop'), _ps(['$'])];
+        expect(actual).to.deep.equal(expected);
+    });
+
+    it('$.$prop[$.$key]', function () {
+        var actual = parser.normalize('$.$prop[$.$key]');
+        var expected = [_n('root'), _p('$prop'), _sp(['$.$key'])];
+        expect(actual).to.deep.equal(expected);
+    });
+});
+
+describe('parser normalize *', function () {
+    it('*', function () {
+        var actual = parser.normalize('*');
+        var expected = [_n('wildcard')];
+        expect(actual).to.deep.equal(expected);
+    });
+
+    it('**', function () {
+        var actual = parser.normalize('**');
+        var expected = [_n('wildcard'), _n('wildcard')];
+        expect(actual).to.deep.equal(expected);
+    });
+
+    it('$.prop*.*', function () {
+        var actual = parser.normalize('$.prop*.*.$*');
+        var expected = [_n('root'), _p('prop*'), _n('wildcard'), _p('$*')];
+        expect(actual).to.deep.equal(expected);
+    });
+
+    it('$.prop[*]', function () {
+        var actual = parser.normalize('$.prop[*]');
+        var expected = [_n('root'), _p('prop'), _n('wildcard')];
+        expect(actual).to.deep.equal(expected);
+    });
+});
+
+describe('parser normalize *', function () {
+    it('*', function () {
+        var actual = parser.normalize('*');
+        var expected = [_n('wildcard')];
+        expect(actual).to.deep.equal(expected);
+    });
+
+    it('**', function () {
+        var actual = parser.normalize('**');
+        var expected = [_n('wildcard'), _n('wildcard')];
+        expect(actual).to.deep.equal(expected);
+    });
+
+    it('$.prop*.*', function () {
+        var actual = parser.normalize('$.prop*.*.$*');
+        var expected = [_n('root'), _p('prop*'), _n('wildcard'), _p('$*')];
+        expect(actual).to.deep.equal(expected);
+    });
+
+    it('$.prop[*]', function () {
+        var actual = parser.normalize('$.prop[*]');
+        var expected = [_n('root'), _p('prop'), _n('wildcard')];
+        expect(actual).to.deep.equal(expected);
+    });
+});
+
+describe('parser normalize ^', function () {
+    it('prop^', function () {
+        var actual = parser.normalize('prop^');
+        var expected = [_p('prop'), _n('parent')];
+        expect(actual).to.deep.equal(expected);
+    });
+
+    it('prop.^.other', function () {
+        var actual = parser.normalize('prop.^.other');
+        var expected = [_p('prop'), _n('parent'), _p('other')];
+        expect(actual).to.deep.equal(expected);
+    });
+
+    it('prop.^.other^', function () {
+        var actual = parser.normalize('prop.^.other^');
+        var expected = [_p('prop'), _n('parent'), _p('other'), _n('parent')];
+        expect(actual).to.deep.equal(expected);
+    });
+
+    it('prop^[b]^', function () {
+        var actual = parser.normalize('prop^[b]^');
+        var expected = [_p('prop'), _n('parent'), _ps(['b']), _n('parent')];
+        expect(actual).to.deep.equal(expected);
     });
 });
