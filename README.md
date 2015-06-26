@@ -12,10 +12,10 @@ In addition to functionality described [here](https://github.com/s3u/JSONPath), 
 - ***wrap*** - Whether or not to wrap the results in an array. If `wrap` is set to true, the result will always be an array which can be empty.  If `wrap` is set to false, and no results are found, `null` will be returned (as opposed to an empty array). If `wrap` is set to false and a single result is found, that result will be the only item returned. If `wrap` is not specified, it is set to `true` if branching elements (`..`, `*`, `:` (range), `,` (multiple properties)) are used and it will be set to `false` otherwise. An array will still be returned if multiple results are found, however.
 - ***emptyValue*** - This specifies what to return if no results are found.  If `wrap` is specified this defaults to `[]` and if it is not specified it defaults to `null`.
 
-<a name="jsonpath.instance" />
+<a name="instance" />
 #### instance(inputExpr, opts)
 
-Returns a JSONPath evaluator.  You can define functions for JSONPath expressions in `opts.functions`
+Returns a JSONPath evaluator.  You can define functions for JSONPath expressions in `opts.sandbox`
 ```js
 var example = {
     "store": {
@@ -50,14 +50,14 @@ var example = {
 };
 
 var options = {
-    functions: {
+    sandbox: {
         round: function (obj) {
             return Math.round(obj);
         }
     }
 };
 
-var jp = jsonpath.instance('$.store..price.round()', options);
+var jp = jsonave.instance('$.store..price.round()', options);
 var result = jp(example);
 console.log(result); // [ 9, 13, 9, 23, 20 ]
 ```
@@ -69,7 +69,7 @@ var round = function (obj) {
     return Math.round(obj);
 };
 
-var jp = jsonpath.instance('$.store..price.round()');
+var jp = jsonave.instance('$.store..price.round()');
 var result = jp(example, {
     round: round
 });
