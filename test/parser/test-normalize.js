@@ -74,8 +74,8 @@ describe('parser normalize general', function () {
             _n('root'),
             _n('recursive_descent'),
             _p('book'), {
-                type: 'properties',
-                parameter: [2]
+                type: 'property',
+                parameter: 2
             }
         ];
         expect(actual).to.deep.equal(expected);
@@ -228,7 +228,7 @@ describe('parser normalize $', function () {
 
     it('$.$prop[$]', function () {
         var actual = parser.normalize('$.$prop[$]');
-        var expected = [_n('root'), _p('$prop'), _ps(['$'])];
+        var expected = [_n('root'), _p('$prop'), _p('$')];
         expect(actual).to.deep.equal(expected);
     });
 
@@ -312,7 +312,7 @@ describe('parser normalize ^', function () {
 
     it('prop^[b]^', function () {
         var actual = parser.normalize('prop^[b]^');
-        var expected = [_p('prop'), _n('parent'), _ps(['b']), _n('parent')];
+        var expected = [_p('prop'), _n('parent'), _p('b'), _n('parent')];
         expect(actual).to.deep.equal(expected);
     });
 });
