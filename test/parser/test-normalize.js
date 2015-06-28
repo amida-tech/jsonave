@@ -6,32 +6,10 @@ var parser = require('../../lib/parser');
 
 var expect = chai.expect;
 
-var _p = function (property) {
-    return {
-        type: 'property',
-        parameter: property
-    };
-};
-
-var _ps = function (properties) {
-    return {
-        type: 'properties',
-        parameter: properties
-    };
-};
-
-var _sp = function (path) {
-    return {
-        type: 'subpath',
-        parameter: '$.$key'
-    };
-};
-
-var _n = function (type) {
-    return {
-        type: type
-    };
-};
+var _n = parser._n;
+var _p = parser._p;
+var _ps = parser._ps;
+var _sp = parser._sp;
 
 describe('parser normalize general', function () {
     it('$.store.book[*].author', function () {
@@ -92,14 +70,11 @@ describe('parser normalize general', function () {
 
     it('$..book[-1:]', function () {
         var actual = parser.normalize('$..book[-1:]');
-        var expected = [_n('root'), _n('recursive_descent'), _p('book'), {
-            type: 'properties',
-            parameter: [{
-                start: -1,
-                end: null,
-                step: 1
-            }]
-        }];
+        var expected = [_n('root'), _n('recursive_descent'), _p('book'), _ps([{
+            start: -1,
+            end: null,
+            step: 1
+        }])];
         expect(actual).to.deep.equal(expected);
     });
 
@@ -234,7 +209,7 @@ describe('parser normalize $', function () {
 
     it('$.$prop[$.$key]', function () {
         var actual = parser.normalize('$.$prop[$.$key]');
-        var expected = [_n('root'), _p('$prop'), _sp(['$.$key'])];
+        var expected = [_n('root'), _p('$prop'), _sp('$.$key')];
         expect(actual).to.deep.equal(expected);
     });
 });

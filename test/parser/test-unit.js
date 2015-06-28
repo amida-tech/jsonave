@@ -6,7 +6,7 @@ var parser = require('../../lib/parser.js');
 
 var expect = chai.expect;
 var re = parser.re;
-var expandSubscriptProperties = parser.expandSubscriptProperties;
+var subscriptToNode = parser.subscriptToNode;
 
 describe('reqular expression verification', function () {
     var expectSingleMatch = function (expression, result, count) {
@@ -179,21 +179,22 @@ describe('reqular expression verification', function () {
     });
 });
 
-describe('expandSubscriptProperties', function () {
+describe('subscriptToNode', function () {
     var subscripts = [{
         value: '1:8:2',
-        expected: [{
-            start: 1,
-            end: 8,
-            step: 2
-        }]
+        expected: {
+            type: 'properties',
+            parameter: [{
+                start: 1,
+                end: 8,
+                step: 2
+            }]
+        }
     }];
 
     subscripts.forEach(function (subscript) {
         it(subscript.value, function () {
-            var actual = [];
-            var r = expandSubscriptProperties(subscript.value, actual);
-            expect(r).to.equal(true);
+            var actual = subscriptToNode(subscript.value);
             expect(actual).to.deep.equal(subscript.expected);
         });
     });
