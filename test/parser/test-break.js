@@ -61,4 +61,14 @@ describe('parser error conditions', function () {
         var fn = parser.normalize.bind(null, '$..book[engine,');
         expect(fn).to.throw(Error);
     });
+
+    it('$.prop["]nested', function () {
+        var fn = parser.normalize.bind(null, '$.prop["]nested');
+        expect(fn).to.throw(Error);
+    });
+
+    it('$.prop[\'nes]ted', function () {
+        var fn = parser.normalize.bind(null, '$.prop[\'nes]ted');
+        expect(fn).to.throw(Error);
+    });
 });

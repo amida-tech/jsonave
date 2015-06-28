@@ -316,3 +316,18 @@ describe('parser normalize ^', function () {
         expect(actual).to.deep.equal(expected);
     });
 });
+
+describe('parser normalize nested', function () {
+    it('$.prop["]nested"]', function () {
+        var actual = parser.normalize('$.prop["]nested"]');
+        var expected = [_n('root'), _p('prop'), _p(']nested')];
+        expect(actual).to.deep.equal(expected);
+    });
+
+    it('$.prop[\'nes]ted\']', function () {
+        var actual = parser.normalize('$.prop[\'nes]ted\']');
+        var expected = [_n('root'), _p('prop'), _p('nes]ted')];
+        expect(actual).to.deep.equal(expected);
+    });
+
+});
