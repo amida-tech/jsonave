@@ -48,7 +48,7 @@ describe('@ and $ test', function () {
         })[100]).to.deep.equal(undefined);
     });
 
-    xit('actual', function () {
+    it('actual', function () {
         expect(jsonPath({
             json: t1,
             path: '\$'
