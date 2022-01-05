@@ -8,11 +8,32 @@ A JSONPath Implementation
 
 This library provides an implementation of [JSONPath](http://goessner.net/articles/JsonPath).  Originally it was based on [this implementation](https://github.com/s3u/JSONPath) and added support for functions.  Current version however is a complete rewrite and code is structured so that no performance penalties are paid when parent and path functionalities are not used.  [Original API and options](https://github.com/s3u/JSONPath) are still supported.
 
-Another implementation of JSONPath is [jsonpath](https://github.com/dchester/jsonpath).  [jsonpath](https://github.com/dchester/jsonpath) does not include the additional functionality to the original [JSONPath](http://goessner.net/articles/JsonPath) such as functions and parent that this library provides.  However it does use a fully defined BNF parser based on [Jison](https://github.com/zaach/jison). This library uses a manually implemented parser.  No performance comparison to [jsonpath](https://github.com/dchester/jsonpath) has been made either for the parsers or the actual [JSONPath](http://goessner.net/articles/JsonPath) engine.    
+Another implementation of JSONPath is [jsonpath](https://github.com/dchester/jsonpath).  [jsonpath](https://github.com/dchester/jsonpath) does not include the additional functionality to the original [JSONPath](http://goessner.net/articles/JsonPath) such as functions and parent that this library provides.  However it does use a fully defined BNF parser based on [Jison](https://github.com/zaach/jison). This library uses a manually implemented parser.  No performance comparison to [jsonpath](https://github.com/dchester/jsonpath) has been made either for the parsers or the actual [JSONPath](http://goessner.net/articles/JsonPath) engine.
 
 In addition to functionality described [here](https://github.com/s3u/JSONPath), this library implements ability to add functions as part of JSONPath.  The example below illustrates the additional functionality.  Some options functionality are also modified as follows
 - ***wrap*** - Whether or not to wrap the results in an array. If `wrap` is set to true, the result will always be an array which can be empty.  If `wrap` is set to false, and no results are found, `null` will be returned (as opposed to an empty array). If `wrap` is set to false and a single result is found, that result will be the only item returned. If `wrap` is not specified, it is set to `true` if branching elements (`..`, `*`, `:` (range), `,` (multiple properties)) are used and it will be set to `false` otherwise. An array will still be returned if multiple results are found, however.
 - ***emptyValue*** - This specifies what to return if no results are found.  If `wrap` is specified this defaults to `[]` and if it is not specified it defaults to `null`.
+
+## Quick up and running guide
+
+### Prerequisites
+
+- Node.js (v0.10+) and NPM
+- Grunt.js
+
+```
+# Install dependencies
+npm i
+
+# Install grunt
+npm i -g grunt
+
+# Test
+grunt
+
+```
+
+## Usage
 
 #### <a name="instance"></a>instance(inputExpr, opts)
 
