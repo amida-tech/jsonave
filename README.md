@@ -1,7 +1,7 @@
 # jsonave
 A JSONPath Implementation
 
-[![NPM](https://nodei.co/npm/jsonave.png)](https://nodei.co/npm/jsonave/)
+[![NPM](https://nodei.co/npm/@amida-tech/jsonave.png)](https://nodei.co/npm/@amida-tech/jsonave/)
 
 [![Build Status](https://travis-ci.org/amida-tech/jsonave.svg)](https://travis-ci.org/amida-tech/jsonave)
 [![Coverage Status](https://coveralls.io/repos/amida-tech/jsonave/badge.png)](https://coveralls.io/r/amida-tech/jsonave)
@@ -18,7 +18,7 @@ In addition to functionality described [here](https://github.com/s3u/JSONPath), 
 
 ### Prerequisites
 
-- Node.js (v0.10+) and NPM
+- Node.js (v14.19+) and NPM
 - Grunt.js
 
 ```
@@ -35,7 +35,7 @@ grunt
 
 ## Usage
 
-#### <a name="instance"></a>instance(inputExpr, opts)
+### <a name="instance"></a>instance(inputExpr, opts) ###
 
 Returns a JSONPath evaluator.  You can define functions for JSONPath expressions in `opts.sandbox`
 
