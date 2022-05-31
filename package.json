@@ -1,6 +1,6 @@
 {
   "name": "@amida-tech/jsonave",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A JSONPath implementation",
   "main": "./index.js",
   "directories": {
@@ -13,7 +13,7 @@
   "author": "Afsin Ustundag <afsin.ustundag@us.pwc.com>",
   "license": "Apache-2.0",
   "engines": {
-    "node": ">= 14.19.1"
+    "node": ">= 14.19.3"
   },
   "dependencies": {
     "lodash": "^4.17.21"
